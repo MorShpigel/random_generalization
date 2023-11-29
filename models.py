@@ -30,7 +30,8 @@ class DiagonalNetworks_sampled():
         self.depth = depth
         self.d_input = d_input
         self.dist = dist
-        self.w = nn.Parameter(torch.randn(d_input, 1))
+        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.w = nn.Parameter(torch.randn(d_input, 1)).to(self.device)
 
     def forward(self, input):
         wx = input*self.w
@@ -53,3 +54,4 @@ class DiagonalNetworks_sampled():
                 self.w = torch.mul(self.w, torch.normal(0, 1, (self.d_input,)))
         elif self.dist=="Laplace":
             self.w = torch.distributions.laplace.Laplace(0, 1).sample((self.d_input,))
+        self.w = self.w.to(self.device)

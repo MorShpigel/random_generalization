@@ -1,7 +1,12 @@
 import numpy as np
 from utilities import calc_accuracy
 from models import DiagonalNetworks_sampled
+import torch
 from torch import nn
+import time
+from create_data import create_sparse_data
+# import multiprocessing as mp
+
 
 def find_interpolating_sol(x_train, y_train, model, number_of_models_to_sample=1000, seed=0, criterion=nn.BCEWithLogitsLoss(), loss_max_thr=1, loss_min_thr=0):
     """
@@ -28,48 +33,34 @@ def find_interpolating_sol(x_train, y_train, model, number_of_models_to_sample=1
     return iter, "Failed"
 
 
-def calc_guess_and_check_generalzation(x_train, y_train, x_test, y_test, dist="Normal", T_find_interpolating_sol=100000, number_of_GNC_models_to_try=10, seed=0, depth=2, criterion=nn.BCEWithLogitsLoss(), loss_max_thr=1, loss_min_thr=0):
+def find_interpolating_sol_generalzation(x_train, y_train, x_test, y_test, dist, d, depth, number_of_models_to_sample=1000, seed=0, criterion=nn.BCEWithLogitsLoss(), loss_max_thr=1, loss_min_thr=0):
     """
-    This function calculates the avarage generalization of the guess and check algorithm 
-    by running the algorithm number_of_GNC_models_to_try times and averaging the resulting models test accuracy
-    
-    Input:
-    x_train - training data
-    y_train - training labels
-    x_test - test data
-    y_test - test labels
-    dist - distribution of the weights
-    T_find_interpolating_sol - number of random models to sample
-    number_of_GNC_models_to_try - number of models to (try to) obtain using the guess and check algorithm
-    seed - random seed
-    depth - depth of the model
-    
-    Output:
-    test_acc_mean - avarage test accuracy of the models
-    test_acc_std - standard deviation of the test accuracy of the models
-    succ_counter - number of models that were trained successfully
+    This function calls find_interpolating_sol to find an interpolating model for the given data and calculates the resulting test accuracy
     """
-    d = x_train.shape[1]
-    succ_counter = 0
-    test_acc_vec = []
     model = DiagonalNetworks_sampled(dist, d, depth=depth)
-    for i in range(number_of_GNC_models_to_try):
-        if i%100==0:
-            print(f"GNC: Trying model {i} out of {number_of_GNC_models_to_try}")
-        iter, status = find_interpolating_sol(x_train, y_train, model, T_find_interpolating_sol, seed+i, criterion=criterion, loss_max_thr=loss_max_thr, loss_min_thr=loss_min_thr)
-        if status=="Failed":
-            continue
+    iter, status = find_interpolating_sol(x_train, y_train, model, number_of_models_to_sample, seed, criterion=criterion, loss_max_thr=loss_max_thr, loss_min_thr=loss_min_thr)
+    if status=="Failed":
+        return -1, status
+    else:
         train_acc, y_hat = calc_accuracy(model.forward_normalize, x_train, y_train)
         loss_train = criterion(y_hat, (y_train>0).float())
-        # if loss_train>loss_max_thr or loss_train<loss_min_thr:
-        #     continue
-        succ_counter += 1
         test_acc, _ = calc_accuracy(model.forward_normalize, x_test, y_test)
-        test_acc_vec.append(test_acc)
-    if (len(test_acc_vec)):
-        test_acc_mean = np.array(test_acc_vec).mean()
-        test_acc_std = np.array(test_acc_vec).std()
+        return test_acc, status
+
+
+def run_guess_and_check_generalzation_exp(dist, N_train, N_test, dataset, data_seed, d, r, mu, T_find_interpolating_sol, number_of_GNC_models_to_try, criterion_type, loss_max_thr, loss_min_thr, depth):
+    """
+    This function runs the guess and check algorithm and calculates the resulting test accuracy
+    """
+    x_train, y_train, x_test, y_test = create_sparse_data(n_train=N_train, n_test=N_test, r=r, dataset=dataset, normalized_flag=False, seed=data_seed, mu=mu, d=d)
+    if criterion_type=='BCEWithLogitsLoss':
+        criterion = nn.BCEWithLogitsLoss()
     else:
-        test_acc_mean = -1
-        test_acc_std = -1
-    return test_acc_mean, test_acc_std, succ_counter
+        print("Criterion not supported")
+    test_acc_vec = []
+    status_vec = []
+    for i in range(number_of_GNC_models_to_try):
+        test_acc, status = find_interpolating_sol_generalzation(x_train, y_train, x_test, y_test, dist, d, depth, T_find_interpolating_sol, data_seed+i, criterion=criterion, loss_max_thr=loss_max_thr, loss_min_thr=loss_min_thr)
+        test_acc_vec.append(test_acc.cpu().numpy())
+        status_vec.append(status)
+    return test_acc_vec, status_vec

@@ -1,6 +1,10 @@
 import torch
 import pickle 
 import sys
+import pandas as pd
+from filelock import FileLock
+import os
+import yaml
 
 def calc_accuracy(model, X, y):
     """
@@ -62,3 +66,79 @@ def is_debug():
     else:
         # print("No debug!")
         return False
+
+
+def fill_config(config, dist):
+    """
+    This function fills the configuration with default values
+    """
+    config_full = config.copy()
+    config_full['dist'] = dist
+    if dist=="GD":
+        config_full['T_find_interpolating_sol'] = -1
+        config_full['number_of_GNC_models_to_try'] = -1
+    else:
+        config_full['number_of_GD_models_to_try'] = -1
+        config_full['epochs'] = -1
+        config_full['lr'] = -1
+        config_full['weight_decay'] = -1
+        config_full['optimizer_type'] = 'None'
+    return config_full
+
+
+def save_result_to_csv(test_acc_vec, status_vec, dist, config, file_name):
+    """
+    This function saves the results of the experiment to a CSV file
+    """
+    # Convert the configuration to a DataFrame
+    config_full = fill_config(config, dist)
+    df_config = pd.DataFrame(config_full, index=[0])
+
+    # Convert the results to a DataFrame
+    if dist=="GD":
+        df_config = pd.concat([df_config]*config_full['number_of_GD_models_to_try'], ignore_index=True)
+        df_config2 = pd.DataFrame({'sample_seed': range(config_full['data_seed'], config_full['data_seed']+config_full['number_of_GD_models_to_try'])})
+    else:
+        df_config = pd.concat([df_config]*config_full['number_of_GNC_models_to_try'], ignore_index=True)
+        df_config2 = pd.DataFrame({'sample_seed': range(config_full['data_seed'], config_full['data_seed']+config_full['number_of_GNC_models_to_try'])})
+    df_config = pd.concat([df_config, df_config2], axis=1)
+    df_results = pd.DataFrame({'status': status_vec, 'test_acc': test_acc_vec})
+    # Concatenate the results and configuration
+    df = pd.concat([df_config, df_results], axis=1)
+
+    # Specify the order of the keys
+    keys = ['N_test', 'N_train', 'dataset', 'd', 'mu', 'r', 'data_seed', 'depth', 'criterion_type', 'loss_max_thr', 'loss_min_thr', 'dist', 'T_find_interpolating_sol', 'number_of_GNC_models_to_try', 'number_of_GD_models_to_try', 'epochs', 'lr', 'weight_decay', 'optimizer_type', 'sample_seed', 'status', 'test_acc']
+
+    # Reorder the columns of the DataFrame
+    df = df[keys]
+
+    lock = FileLock(file_name + ".lock")
+    with lock:
+        # Check if file exists
+        if not os.path.exists(file_name):
+            df.to_csv(file_name, mode='w', index=False)
+        # Check if file is empty
+        elif os.stat(file_name).st_size == 0:
+            df.to_csv(file_name, mode='a', index=False)
+        else:
+            df.to_csv(file_name, mode='a', header=False, index=False)
+
+
+def print_configs(file="configs.yaml"):
+
+    # Load the YAML file
+    with open(file, 'r') as f:
+        data = yaml.safe_load(f)
+
+    # Convert the dictionary to a DataFrame
+    df_dist = pd.DataFrame(data['experiment_dist'])
+    df_gd = pd.DataFrame(data['experiment_GD'])
+    
+    # Print the DataFrame
+    print(df_dist)
+    print(df_gd)
+
+
+    
+
+    

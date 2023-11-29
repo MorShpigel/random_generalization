@@ -3,6 +3,7 @@ import torch.nn as nn
 import numpy as np
 from utilities import calc_accuracy
 from models import DiagonalNetworks
+from create_data import create_sparse_data
 
 def train_gd(model, optimizer, criterion, x_train, y_train, epochs=1000, loss_max_thr=1, loss_min_thr=0 ,print_loss=True):
     """
@@ -42,44 +43,42 @@ def train_gd(model, optimizer, criterion, x_train, y_train, epochs=1000, loss_ma
     return iter, "Failed"
 
 
-def calc_GD_generalzation(x_train, y_train, x_test, y_test, lr=0.1, number_of_models_to_try=10, epochs=1000, loss_max_thr=1, loss_min_thr=0, criterion=nn.BCEWithLogitsLoss(), weight_decay=0):
+def find_GD_generalzation(x_train, y_train, x_test, y_test, d, depth, epochs, optimizer_type, lr, weight_decay, criterion=nn.BCEWithLogitsLoss(), loss_max_thr=1, loss_min_thr=0, seed=0):
     """
-    This function calculates the avarage generalization of the gradient descent algorithm 
-    by running the algorithm number_of_models times and averaging the resulting models test accuracy
-    
-    Input:
-    x_train - training data
-    y_train - training labels
-    x_test - test data
-    y_test - test labels
-    lr - learning rate
-    number_of_models - number of models to train
-    epochs - number of epochs to train
-    loss_thr - loss threshold to stop training (only if the training accuracy is 1.0)
-    
-    Output:
-    test_acc_mean - avarage test accuracy of the models
-    test_acc_std - standard deviation of the test accuracy of the models
-    succ_counter - number of models that were trained successfully
+    This function calls train_gd calculates the resulting test accuracy
     """
-    d = x_train.shape[1]
-    succ_counter = 0
-    test_acc_vec = []
-    for i in range(number_of_models_to_try):
-        if i%100==0:
-            print(f"GD: Initializing model number {i}")
-        model_gd = DiagonalNetworks(d)
+    # set seed
+    torch.manual_seed(seed)
+    # set device
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model_gd = DiagonalNetworks(d, depth=depth).to(device)
+    if optimizer_type=='SGD':
         optimizer = torch.optim.SGD(model_gd.parameters(), lr=lr, weight_decay=weight_decay)
-        iter, status = train_gd(model_gd, optimizer, criterion, x_train, y_train, epochs=epochs, loss_max_thr=loss_max_thr, loss_min_thr=loss_min_thr, print_loss=False)
-        if status=="Failed":
-            continue
-        succ_counter += 1
-        test_acc, _ = calc_accuracy(model_gd, x_test, y_test)
-        test_acc_vec.append(test_acc)
-    if (len(test_acc_vec)):
-        test_acc_mean = np.array(test_acc_vec).mean()
-        test_acc_std = np.array(test_acc_vec).std()
     else:
-        test_acc_mean = -1
-        test_acc_std = -1
-    return test_acc_mean, test_acc_std, succ_counter
+        print("Optimizer not supported")
+    iter, status = train_gd(model_gd, optimizer, criterion, x_train, y_train, epochs=epochs, loss_max_thr=loss_max_thr, loss_min_thr=loss_min_thr, print_loss=False)
+    if status=="Failed":
+        return torch.tensor(-1), status
+    else:
+        train_acc, y_hat = calc_accuracy(model_gd, x_train, y_train)
+        loss_train = criterion(y_hat, (y_train>0).float())
+        test_acc, _ = calc_accuracy(model_gd, x_test, y_test)
+        return test_acc, status
+    
+
+def run_GD_generalzation_exp(N_train, N_test, dataset, data_seed, d, r, mu, number_of_GD_models_to_try, criterion_type, loss_max_thr, loss_min_thr, depth, epochs, optimizer_type, lr, weight_decay):
+    """
+    This function runs the find_GD_generalzation function number_of_GD_models_to_try times and returns the resulting test accuracy
+    """
+    x_train, y_train, x_test, y_test = create_sparse_data(n_train=N_train, n_test=N_test, r=r, dataset=dataset, normalized_flag=False, seed=data_seed, mu=mu, d=d)
+    if criterion_type=='BCEWithLogitsLoss':
+        criterion = nn.BCEWithLogitsLoss()
+    else:
+        print("Criterion not supported")
+    test_acc_vec = []
+    status_vec = []
+    for i in range(number_of_GD_models_to_try):
+        test_acc, status = find_GD_generalzation(x_train, y_train, x_test, y_test, d, depth, epochs, optimizer_type, lr, weight_decay, criterion=criterion, loss_max_thr=loss_max_thr, loss_min_thr=loss_min_thr, seed=data_seed+i)
+        test_acc_vec.append(test_acc.cpu().numpy())
+        status_vec.append(status)
+    return test_acc_vec, status_vec

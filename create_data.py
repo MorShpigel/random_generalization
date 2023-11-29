@@ -82,7 +82,7 @@ def create_data_Mnist(n_train=512, n_test=128, normalized_flag=True, class_A_lab
     return x_train, y_train, x_test, y_test
 
 
-def create_sparse_data(n_train, n_test, r=1, dataset="random", seed=0, mu=0, d=50, normalized_flag=True):
+def create_sparse_data(n_train, n_test, r=1, dataset="random", seed=0, mu=0, d=50, normalized_flag=True, device="cpu"):
     """
     This function creates a sparse data set
 
@@ -107,4 +107,5 @@ def create_sparse_data(n_train, n_test, r=1, dataset="random", seed=0, mu=0, d=5
         x_test, y_test = create_random_data(n_test, d, r, mu, seed+1)
     elif dataset=="MNIST":
         x_train, y_train, x_test, y_test = create_data_Mnist(n_train, n_test, normalized_flag, class_A_label=0, class_B_label=1, r=r)
-    return x_train, y_train, x_test, y_test
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    return x_train.to(device), y_train.to(device), x_test.to(device), y_test.to(device)
