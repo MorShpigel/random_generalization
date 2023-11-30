@@ -12,7 +12,7 @@ experiment_dist:
   loss_min_thr: 0.2
   T_find_interpolating_sol: 100000
   number_of_GNC_models_to_try: 100
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -26,7 +26,7 @@ experiment_dist:
   loss_min_thr: 0.2
   T_find_interpolating_sol: 100000
   number_of_GNC_models_to_try: 100
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -40,7 +40,7 @@ experiment_dist:
   loss_min_thr: 0.2
   T_find_interpolating_sol: 100000
   number_of_GNC_models_to_try: 100
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -54,7 +54,7 @@ experiment_dist:
   loss_min_thr: 0
   T_find_interpolating_sol: 100000
   number_of_GNC_models_to_try: 100
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -68,7 +68,7 @@ experiment_dist:
   loss_min_thr: 0.2
   T_find_interpolating_sol: 100000
   number_of_GNC_models_to_try: 100
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -82,7 +82,7 @@ experiment_dist:
   loss_min_thr: 0
   T_find_interpolating_sol: 100000
   number_of_GNC_models_to_try: 100
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -96,7 +96,7 @@ experiment_dist:
   loss_min_thr: 0.2
   T_find_interpolating_sol: 100000
   number_of_GNC_models_to_try: 100
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -110,7 +110,7 @@ experiment_dist:
   loss_min_thr: 0
   T_find_interpolating_sol: 100000
   number_of_GNC_models_to_try: 100
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -124,7 +124,7 @@ experiment_dist:
   loss_min_thr: 0.2
   T_find_interpolating_sol: 100000
   number_of_GNC_models_to_try: 100
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -132,6 +132,118 @@ experiment_dist:
   mu: 0.0
   r: 1
   data_seed: 300
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  T_find_interpolating_sol: 100000
+  number_of_GNC_models_to_try: 100
+  config_status: completed
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 600
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  T_find_interpolating_sol: 100000
+  number_of_GNC_models_to_try: 100
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 600
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  T_find_interpolating_sol: 100000
+  number_of_GNC_models_to_try: 100
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 600
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  T_find_interpolating_sol: 100000
+  number_of_GNC_models_to_try: 100
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 600
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  T_find_interpolating_sol: 100000
+  number_of_GNC_models_to_try: 100
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 900
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  T_find_interpolating_sol: 100000
+  number_of_GNC_models_to_try: 100
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 900
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  T_find_interpolating_sol: 100000
+  number_of_GNC_models_to_try: 100
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 900
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  T_find_interpolating_sol: 100000
+  number_of_GNC_models_to_try: 100
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 900
   depth: 30
   criterion_type: BCEWithLogitsLoss
   loss_max_thr: 1
@@ -156,7 +268,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.0
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -173,7 +285,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.3
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -190,7 +302,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.0
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -207,7 +319,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.3
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -224,7 +336,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.0
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -241,7 +353,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.3
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -258,7 +370,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.0
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -275,7 +387,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.3
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -292,7 +404,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.0
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -309,7 +421,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.3
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -326,7 +438,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.0
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -343,7 +455,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.3
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -360,7 +472,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.0
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -377,7 +489,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.3
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -394,7 +506,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.0
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -411,7 +523,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.3
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -428,7 +540,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.0
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -445,7 +557,7 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.3
-  config_status: waiting
+  config_status: completed
 - N_train: 16
   N_test: 2000
   dataset: random
@@ -462,6 +574,91 @@ experiment_GD:
   optimizer_type: SGD
   lr: 0.1
   weight_decay: 0.0
+  config_status: completed
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 300
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.3
+  config_status: completed
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 0
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.1
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 0
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.1
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 0
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.1
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 0
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.1
   config_status: waiting
 - N_train: 16
   N_test: 2000
@@ -470,6 +667,465 @@ experiment_GD:
   mu: 0.0
   r: 1
   data_seed: 300
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.1
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 300
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.1
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 300
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.1
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 300
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.1
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 600
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.0
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 600
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.1
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 600
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.3
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 600
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.0
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 600
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.1
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 600
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.3
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 600
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.0
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 600
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.1
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 600
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.3
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 600
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.0
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 600
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.1
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 600
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.3
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 900
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.0
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 900
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.1
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 900
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.3
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 900
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.0
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 900
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.1
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 900
+  depth: 2
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.3
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 900
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.0
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 900
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.1
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 900
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 0.3
+  loss_min_thr: 0.2
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.3
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 900
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.0
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 900
+  depth: 30
+  criterion_type: BCEWithLogitsLoss
+  loss_max_thr: 1
+  loss_min_thr: 0
+  number_of_GD_models_to_try: 100
+  epochs: 20000
+  optimizer_type: SGD
+  lr: 0.1
+  weight_decay: 0.1
+  config_status: waiting
+- N_train: 16
+  N_test: 2000
+  dataset: random
+  d: 30
+  mu: 0.0
+  r: 1
+  data_seed: 900
   depth: 30
   criterion_type: BCEWithLogitsLoss
   loss_max_thr: 1

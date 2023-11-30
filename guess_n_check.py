@@ -40,7 +40,7 @@ def find_interpolating_sol_generalzation(x_train, y_train, x_test, y_test, dist,
     model = DiagonalNetworks_sampled(dist, d, depth=depth)
     iter, status = find_interpolating_sol(x_train, y_train, model, number_of_models_to_sample, seed, criterion=criterion, loss_max_thr=loss_max_thr, loss_min_thr=loss_min_thr)
     if status=="Failed":
-        return -1, status
+        return torch.tensor(-1), status
     else:
         train_acc, y_hat = calc_accuracy(model.forward_normalize, x_train, y_train)
         loss_train = criterion(y_hat, (y_train>0).float())

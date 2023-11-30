@@ -1,4 +1,5 @@
 import yaml
+import os
 
 # Define the base experiment_dist configuration
 base_dist_config = {
@@ -39,9 +40,16 @@ base_gd_config = {
 }
 
 # Define the values for N_train and d
-data_seed_values = [0, 300]
+data_seed_values = [0, 300, 600, 900]
 depth_vec = [2, 30]
 loss_thr_vec = [(0.2, 0.3), (0, 1)]
+
+if not os.path.exists('configs.yaml'):
+    data = {'experiment_dist':[], 'experiment_GD': []}
+    with open('configs.yaml', 'w') as f:
+    # Write the data to the file
+        yaml.dump(data, f)
+
 # Load experiment configurations from a YAML file
 with open('configs.yaml', 'r') as f:
     configs = yaml.safe_load(f)
@@ -65,7 +73,7 @@ for data_seed in data_seed_values:
                 configs.append(config)
 configs_dist.extend(configs)
 
-weight_decay_vec = [0.0, 0.3]
+weight_decay_vec = [0.0, 0.1, 0.3]
 configs = []
 for data_seed in data_seed_values:
     for depth in depth_vec:

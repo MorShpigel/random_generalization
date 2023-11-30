@@ -20,7 +20,6 @@ def create_random_data(n, d, r, mu=0, seed=0):
     torch.manual_seed(seed)
     X = torch.normal(mu, 1, (n, d))
     X = torch.div(X, torch.matmul(torch.norm(X, dim=1).view(len(X), 1), torch.ones(1, X.shape[1]))) # normalize
-    # X = torch.tensor(np.random.normal(mu, 1, (n, d))).to(torch.float32)
     y = create_sparse_labels(X, r)
     return X, y
 
