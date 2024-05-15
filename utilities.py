@@ -86,28 +86,29 @@ def fill_config(config, dist):
     return config_full
 
 
-def save_result_to_csv(test_acc_vec, status_vec, dist, config, file_name):
+def save_result_to_csv(test_acc_vec, status_vec, iter_vec, dist, config, file_name):
     """
     This function saves the results of the experiment to a CSV file
     """
     # Convert the configuration to a DataFrame
     config_full = fill_config(config, dist)
     df_config = pd.DataFrame(config_full, index=[0])
-
+    results_num = len(test_acc_vec)
     # Convert the results to a DataFrame
     if dist=="GD":
         df_config = pd.concat([df_config]*config_full['number_of_GD_models_to_try'], ignore_index=True)
         df_config2 = pd.DataFrame({'sample_seed': range(config_full['data_seed'], config_full['data_seed']+config_full['number_of_GD_models_to_try'])})
     else:
-        df_config = pd.concat([df_config]*config_full['number_of_GNC_models_to_try'], ignore_index=True)
-        df_config2 = pd.DataFrame({'sample_seed': range(config_full['data_seed'], config_full['data_seed']+config_full['number_of_GNC_models_to_try'])})
+        # df_config = pd.concat([df_config]*config_full['number_of_GNC_models_to_try'], ignore_index=True)
+        df_config = pd.concat([df_config]*results_num, ignore_index=True)
+        df_config2 = pd.DataFrame({'sample_seed': range(config_full['data_seed'], config_full['data_seed']+results_num)})
     df_config = pd.concat([df_config, df_config2], axis=1)
-    df_results = pd.DataFrame({'status': status_vec, 'test_acc': test_acc_vec})
+    df_results = pd.DataFrame({'status': status_vec, 'iter': iter_vec, 'test_acc': test_acc_vec})
     # Concatenate the results and configuration
     df = pd.concat([df_config, df_results], axis=1)
 
     # Specify the order of the keys
-    keys = ['N_test', 'N_train', 'dataset', 'd', 'mu', 'r', 'data_seed', 'depth', 'criterion_type', 'loss_max_thr', 'loss_min_thr', 'dist', 'T_find_interpolating_sol', 'number_of_GNC_models_to_try', 'number_of_GD_models_to_try', 'epochs', 'lr', 'weight_decay', 'optimizer_type', 'sample_seed', 'status', 'test_acc']
+    keys = ['N_test', 'N_train', 'dataset', 'd', 'mu', 'r', 'data_seed', 'depth', 'criterion_type', 'loss_max_thr', 'loss_min_thr', 'dist', 'T_find_interpolating_sol', 'number_of_GNC_models_to_try', 'number_of_GD_models_to_try', 'epochs', 'lr', 'weight_decay', 'optimizer_type', 'sample_seed', 'status', 'iter', 'test_acc']
 
     # Reorder the columns of the DataFrame
     df = df[keys]

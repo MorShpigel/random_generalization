@@ -40,12 +40,12 @@ def find_interpolating_sol_generalzation(x_train, y_train, x_test, y_test, dist,
     model = DiagonalNetworks_sampled(dist, d, depth=depth)
     iter, status = find_interpolating_sol(x_train, y_train, model, number_of_models_to_sample, seed, criterion=criterion, loss_max_thr=loss_max_thr, loss_min_thr=loss_min_thr)
     if status=="Failed":
-        return torch.tensor(-1), status
+        return torch.tensor(-1), status, iter
     else:
         train_acc, y_hat = calc_accuracy(model.forward_normalize, x_train, y_train)
         loss_train = criterion(y_hat, (y_train>0).float())
         test_acc, _ = calc_accuracy(model.forward_normalize, x_test, y_test)
-        return test_acc, status
+        return test_acc, status, iter
 
 
 def run_guess_and_check_generalzation_exp(dist, N_train, N_test, dataset, data_seed, d, r, mu, T_find_interpolating_sol, number_of_GNC_models_to_try, criterion_type, loss_max_thr, loss_min_thr, depth):
@@ -59,8 +59,41 @@ def run_guess_and_check_generalzation_exp(dist, N_train, N_test, dataset, data_s
         print("Criterion not supported")
     test_acc_vec = []
     status_vec = []
+    iter_vec = []
     for i in range(number_of_GNC_models_to_try):
-        test_acc, status = find_interpolating_sol_generalzation(x_train, y_train, x_test, y_test, dist, d, depth, T_find_interpolating_sol, data_seed+i, criterion=criterion, loss_max_thr=loss_max_thr, loss_min_thr=loss_min_thr)
+        test_acc, status, iter = find_interpolating_sol_generalzation(x_train, y_train, x_test, y_test, dist, d, depth, T_find_interpolating_sol, data_seed+i, criterion=criterion, loss_max_thr=loss_max_thr, loss_min_thr=loss_min_thr)
         test_acc_vec.append(test_acc.cpu().numpy())
         status_vec.append(status)
-    return test_acc_vec, status_vec
+        iter_vec.append(iter)
+    return test_acc_vec, status_vec, iter_vec
+
+
+def run_guess_and_check_generalzation_prob_exp(dist, N_train, N_test, dataset, data_seed, d, r, mu, T_find_interpolating_sol, number_of_GNC_models_to_try, criterion_type, loss_max_thr, loss_min_thr, depth):
+    """
+    This function runs the guess and check algorithm and calculates the resulting test accuracy
+    """
+    x_train, y_train, x_test, y_test = create_sparse_data(n_train=N_train, n_test=N_test, r=r, dataset=dataset, normalized_flag=False, seed=data_seed, mu=mu, d=d)
+    if criterion_type=='BCEWithLogitsLoss':
+        criterion = nn.BCEWithLogitsLoss()
+    else:
+        print("Criterion not supported")
+    test_acc_vec = []
+    status_vec = []
+    iter_vec = []
+    np.random.seed(data_seed)
+    model = DiagonalNetworks_sampled(dist, d, depth=depth)
+    num_of_attempts = 0
+    for iter in range(number_of_GNC_models_to_try):
+        model.sample_params()
+        num_of_attempts += 1
+        train_acc, y_hat = calc_accuracy(model.forward_normalize, x_train, y_train)
+        if train_acc==1.0:
+            status_vec.append("Success")
+            test_acc, _ = calc_accuracy(model.forward_normalize, x_test, y_test)
+            test_acc_vec.append(test_acc.cpu().numpy())
+            iter_vec.append(num_of_attempts)
+            num_of_attempts = 0
+    test_acc_vec.append(np.array(-1))
+    status_vec.append("Failed")
+    iter_vec.append(num_of_attempts)
+    return test_acc_vec, status_vec, iter_vec
